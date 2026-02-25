@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+title: "Quantile Error Metrics for Wind Climates"
+message: "If you use this software, please cite both the paper and this repository."
+type: software
+
+authors:
+  - family-names: "Veiga Rodrigues"
+    given-names: "Carlos"
+    email: "calvr@vestas.com"
+    orcid: "https://orcid.org/0000-0002-9030-7158"
+  - family-names: "Odderskov"
+    given-names: "Io"
+    email: "isgod@vestas.com"
+    orcid: "https://orcid.org/0009-0005-7794-3589"
+
+repository-code: "https://github.com/calvr/climate-error"
+license: "BSD-3-Clause"
+version: "0.1.0"
+date-released: "2026-02-25"
+
+preferred-citation:
+  type: article
+  title: "Climate error metrics based on Wasserstein distances"
+  authors:
+    - family-names: "Veiga Rodrigues"
+      given-names: "Carlos"
+    - family-names: "Odderskov"
+      given-names: "Io"
+  journal: "Applied Energy"
+  volume: "398"
+  article-number: "126392"
+  year: 2025
+  month: 11
+  doi: "10.1016/j.apenergy.2025.126392"
+  url: "https://doi.org/10.1016/j.apenergy.2025.126392"
+  notes: "Metadata retrieved via Crossref REST API (https://api.crossref.org/works/10.1016/j.apenergy.2025.126392)."
+

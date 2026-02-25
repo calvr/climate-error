@@ -1,0 +1,19 @@
+Project: Quantile Error Metrics for Wind Climates
+Copyright (c) 2026
+Carlos Veiga Rodrigues <calvr@vestas.com>
+Io Odderskov <isgod@vestas.com>
+All rights reserved.
+
+This repository provides a reference implementation of the methods described in:
+
+Veiga Rodrigues & Odderskov (2025).
+"Climate error metrics based on Wasserstein distances".
+Applied Energy, Volume 398, 126392.
+DOI: 10.1016/j.apenergy.2025.126392
+URL: https://doi.org/10.1016/j.apenergy.2025.126392
+(Article metadata retrieved via the DOI registry / Crossref: https://api.crossref.org/works/10.1016/j.apenergy.2025.126392)
+
+Attribution Request (non-binding):
+- If you reuse parts of the code (including snippets), please retain the
+  copyright and license notices and cite the above paper.
+
