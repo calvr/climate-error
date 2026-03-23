@@ -1,3 +1,14 @@
+# Code License Notice
+
+Unless otherwise stated, the license below applies to the **software/code** in this repository.
+
+Data files (e.g., items under `example_wind_data/` and any derived datasets) are not covered by the BSD 3‑Clause
+text below. Data are provided under **CC BY 4.0** in accordance with the original sources; see `ATTRIBUTION.md`
+for per-source details, DOIs, and required attribution text. The **CC BY 4.0** license text is available at:
+https://creativecommons.org/licenses/by/4.0/
+
+-------------------------------------------------------------------------------
+
 BSD 3-Clause License
 
 Copyright (c) 2026
@@ -29,3 +40,4 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+

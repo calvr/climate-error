@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 title: "Quantile Error Metrics for Wind Climates"
-message: "If you use this software, please cite both the paper and this repository."
+message: "If you use this software, please cite both the paper, this repository, and —when applicable— the original datasets."
 type: software
 
 authors:
@@ -17,6 +17,11 @@ repository-code: "https://github.com/calvr/climate-error"
 license: "BSD-3-Clause"
 version: "0.1.0"
 date-released: "2026-02-25"
+keywords:
+  - wind climate
+  - quantiles
+  - Wasserstein distance
+  - error metrics
 
 preferred-citation:
   type: article
@@ -34,4 +39,42 @@ preferred-citation:
   doi: "10.1016/j.apenergy.2025.126392"
   url: "https://doi.org/10.1016/j.apenergy.2025.126392"
   notes: "Metadata retrieved via Crossref REST API (https://api.crossref.org/works/10.1016/j.apenergy.2025.126392)."
+
+
+
+references:
+  # DTU Data datasets (cite when used)
+  - type: dataset
+    title: "Resource data from the Ventosa mast"
+    authors:
+      - family-names: "Hansen"
+        given-names: "Kurt Schaldemose"
+      - family-names: "Vasiljevic"
+        given-names: "Nikola"
+      - family-names: "Sørensen"
+        given-names: "Steen Arne"
+    repository: "DTU Data"
+    doi: "10.11583/DTU.14135609"
+    url: "https://doi.org/10.11583/DTU.14135609"
+    license: "CC-BY-4.0"
+
+  - type: dataset
+    title: "Resource data from the Capel Cynon masts"
+    authors:
+      - family-names: "Hansen"
+        given-names: "Kurt Schaldemose"
+      - family-names: "Vasiljevic"
+        given-names: "Nikola"
+      - family-names: "Sørensen"
+        given-names: "Steen Arne"
+    repository: "DTU Data"
+    doi: "10.11583/DTU.14135627"
+    url: "https://doi.org/10.11583/DTU.14135627"
+    license: "CC-BY-4.0"
+
+  # NEWA About/Terms (include required attribution note)
+  - type: webpage
+    title: "New European Wind Atlas (NEWA) — About/Terms"
+    url: "https://map.neweuropeanwindatlas.eu/about"
+    notes: "NEWA datasets are provided under CC BY 4.0; required attribution: “Data obtained from the New European Wind Atlas… www.neweuropeanwindatlas.eu.”"
 

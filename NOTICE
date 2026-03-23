@@ -13,6 +13,38 @@ DOI: 10.1016/j.apenergy.2025.126392
 URL: https://doi.org/10.1016/j.apenergy.2025.126392
 (Article metadata retrieved via the DOI registry / Crossref: https://api.crossref.org/works/10.1016/j.apenergy.2025.126392)
 
+
+THIRD-PARTY DATA AND ATTRIBUTION
+--------------------------------
+This repository includes (or can generate) derived datasets based on publicly available sources:
+
+1) DTU Data — La Ventosa:
+   Hansen, K.S.; Vasiljevic, N.; Sørensen, S.A. (2021).
+   "Resource data from the Ventosa mast". DOI: https://doi.org/10.11583/DTU.14135609
+   License: CC BY 4.0 (as indicated for this item)
+
+2) DTU Data — Capel Cynon:
+   Hansen, K.S.; Vasiljevic, N.; Sørensen, S.A. (2021).
+   "Resource data from the Capel Cynon masts". DOI: https://doi.org/10.11583/DTU.14135627
+   License: CC BY 4.0 (as indicated for this item)
+
+3) New European Wind Atlas (NEWA) — mesoscale time series via API:
+   About/Terms: https://map.neweuropeanwindatlas.eu/about
+   License: CC BY 4.0 (with a required attribution string)
+
+Please see ATTRIBUTION.md for full TASL attributions and a description of “Changes made”.
+
+LICENSES
+--------
+- Code is provided under the BSD 3‑Clause License (see LICENSE).
+- Data in this repository are provided under CC BY 4.0 in accordance with the original sources
+  (see ATTRIBUTION.md). DTU Data recommends displaying the DOI as a full URL in citations.
+- NEWA required attribution (verbatim):
+  "Data obtained from the New European Wind Atlas, a free, web-based application developed, owned
+  and operated by the NEWA Consortium. For additional information see www.neweuropeanwindatlas.eu."
+
+No endorsement is implied by DTU, the dataset authors, or the NEWA Consortium.
+
 Attribution Request (non-binding):
 - If you reuse parts of the code (including snippets), please retain the
   copyright and license notices and cite the above paper.
