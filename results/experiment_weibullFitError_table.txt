@@ -1,0 +1,4 @@
+        Weibull fit error through Wasserstein distances
+BIAS                                -0.11 m/s   (-1.3%)
+STDE                                 0.20 m/s   ( 2.3%)
+RMSE                                 0.22 m/s   ( 2.6%)

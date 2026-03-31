@@ -1,0 +1,5 @@
+include ATTRIBUTION.md
+include CITATION.cff
+include NOTICE
+include LICENSE
+include README.md
