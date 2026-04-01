@@ -1,5 +1,29 @@
+# --- always include core metadata ---
 include ATTRIBUTION.md
 include CITATION.cff
 include NOTICE
 include LICENSE
 include README.md
+
+# --- include Python package ---
+recursive-include climate_error *.py
+
+# --- exclude everything else ---
+prune tests
+prune examples
+prune example_wind_data
+prune results
+prune debug
+prune .github
+exclude .gitignore
+exclude run_docker.sh
+exclude update_version.py
+
+# --- exclude common junk ---
+exclude *.zip
+exclude *.tar.gz
+recursive-exclude * __pycache__
+recursive-exclude * *.pyc
+recursive-exclude * *.pyo
+recursive-exclude * *.log
+
