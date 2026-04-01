@@ -26,11 +26,17 @@ jobs:
 
       - name: Inject version and release date into CITATION.cff
         run: |
-          VERSION="${GITHUB_REF_NAME}"
-          DATE="$(date +%Y-%m-%d)"
+          export VERSION="${GITHUB_REF_NAME#test-}"
+          export DATE="$(date +%Y-%m-%d)"
+          echo -e "VERSION=${VERSION}"
+          echo -e "DATE=${DATE}"
 
           python - <<EOF
+          import os
           from pathlib import Path
+
+          version = os.environ["VERSION"]
+          date = os.environ["DATE"]
 
           path = Path("CITATION.cff")
           lines = path.read_text(encoding="utf-8").splitlines()
@@ -42,8 +48,8 @@ jobs:
                       return
               lines.append(f'{key}: "{value}"')
 
-          replace_or_add("version", VERSION)
-          replace_or_add("date-released", DATE)
+          replace_or_add("version", version)
+          replace_or_add("date-released", date)
 
           path.write_text("\n".join(lines) + "\n", encoding="utf-8")
           EOF
