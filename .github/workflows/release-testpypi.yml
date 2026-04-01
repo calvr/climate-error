@@ -25,12 +25,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install build twine
 
+      - name: Set release version
+        run: |
+          export VERSION="${GITHUB_REF_NAME#test-}" >> $GITHUB_ENV
+          export SETUPTOOLS_SCM_PRETEND_VERSION="${VERSION}" >> $GITHUB_ENV
+          echo -e "VERSION=${VERSION}"
+
       - name: Inject version and release date into CITATION.cff
         run: |
-          export VERSION="${GITHUB_REF_NAME#test-}"
-          export SETUPTOOLS_SCM_PRETEND_VERSION="${VERSION}"
-          export DATE="$(date +%Y-%m-%d)"
           echo -e "VERSION=${VERSION}"
+          export DATE="$(date +%Y-%m-%d)"
           echo -e "DATE=${DATE}"
 
           python - <<EOF
@@ -57,9 +61,8 @@ jobs:
           EOF
 
       - name: Build wheel and sdist
-        env:
-          SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.SETUPTOOLS_SCM_PRETEND_VERSION }}
         run: |
+          echo -e "SETUPTOOLS_SCM_PRETEND_VERSION=${SETUPTOOLS_SCM_PRETEND_VERSION}"
           python -m build --wheel --sdist
 
       - name: Publish to TestPyPI
