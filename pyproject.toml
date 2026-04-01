@@ -1,6 +1,6 @@
 [project]
 name = "climate-error"
-version = "1.0.0"
+dynamic = ["version"]
 description = "Quantile Error Metrics for Wind Climates"
 readme = "README.md"
 license = "BSD-3-Clause"
@@ -12,6 +12,18 @@ authors = [
 maintainers = [
   { name = "Carlos Veiga Rodrigues", email = "calvr@vestas.com" }
 ]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Atmospheric Science",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+
 requires-python = ">=3.10,<3.14"
 dependencies = [
   "requests >=2.31",
@@ -27,9 +39,19 @@ dependencies = [
   "tabulate >=0.9.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/calvr/climate-error"
+Repository = "https://github.com/calvr/climate-error"
+Documentation = "https://github.com/calvr/climate-error#readme"
+Issues = "https://github.com/calvr/climate-error/issues"
+
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["wheel", "setuptools>=68", "setuptools_scm[toml]>=8"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+version_scheme = "release-branch-semver"
+local_scheme = "no-local-version"
 
 [tool.setuptools]
 include-package-data = false
@@ -83,7 +105,15 @@ exclude_lines = [
 
 [tool.ruff]
 cache-dir = ".ruff_cache"
-extend-exclude = ["tests/", "example*/", "*/setup.py", "docs/", "debug/"]
+extend-exclude = [
+  "tests/",
+  "example_wind_data/",
+  "examples/",
+  "results/",
+  "*/setup.py",
+  "docs/",
+  "debug/",
+]
 fix = false
 unsafe-fixes = false
 show-fixes = false
