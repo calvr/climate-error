@@ -14,6 +14,7 @@ docker run --rm --user root -p 127.0.0.1:42137:42137 \
   -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v $PWD:$PWD -w $PWD \
   --ipc=host -it $DOCKER_IMG /bin/bash -lc "
+set -eo pipefail
 eval \"\$(micromamba shell hook --shell bash)\"
 micromamba activate base
 micromamba config set --env always_copy True
@@ -69,12 +70,6 @@ python --version
 
 uv pip install --system .
 
-uv pip install --system build
-python -m build -v --wheel --sdist --outdir \$PKGSDIR
-uv pip install --system \$PKGSDIR/*.whl
-
-uv pip list --format freeze
-
 uv pip install --system .[test]
 python -m ruff check .
 python -m pytest \\
@@ -82,6 +77,12 @@ python -m pytest \\
   --cov=climate_error --cov-branch --cov-report=term-missing \\
   --cov-report xml:\$TESTDIR/test-coverage-results.xml \\
   tests/
+
+uv pip install --system build
+python -m build -v --wheel --sdist --outdir \$PKGSDIR
+uv pip install --system \$PKGSDIR/*.whl
+
+uv pip list --format freeze
 
 exec bash
 "
