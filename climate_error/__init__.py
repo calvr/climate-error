@@ -26,32 +26,12 @@ except PackageNotFoundError:  # Package is not installed (e.g., running from a d
 
 
 # Citation info
-import tomllib
-from pathlib import Path
-
-def _load_citation() -> str:
-    """
-    Load CITATION.cff as a string for climate_error.__citation__.
-    If running from an installed wheel (without source files), fall back to a short message.
-    """
-    root = Path(__file__).resolve().parents[1]
-    cff = root / "CITATION.cff"
-    if not cff.exists():
-        return (
-            "Veiga Rodrigues & Odderskov (2025), Applied Energy 398, 126392."
-             + "\nDOI: 10.1016/j.apenergy.2025.126392"
-        )
-    try:
-        data = tomllib.loads(cff.read_text(encoding="utf-8"))
-        authors = ", ".join(a["family-names"] for a in data.get("authors", []))
-        year = data.get("date-released", "")[:4]
-        title = data.get("title", "")
-        doi = data.get("identifiers", [{}])[0].get("value", "")
-        return f"{authors} ({year}). {title}. DOI: {doi}"
-    except Exception:
-        return cff.read_text(encoding="utf-8")
-
-__citation__ = _load_citation()
+__citation__ = (
+    "Carlos Veiga Rodrigues & Io Odderskov (2025)."
+    + " Climate error metrics based on Wasserstein distances."
+    + " Applied Energy 398, 126392."
+    + " DOI: 10.1016/j.apenergy.2025.126392"
+)
 
 
 # Public API imports
@@ -77,6 +57,7 @@ from .quantile_error_metrics import (
 # Define the public API (`from climate_error import *`)
 __all__ = [
     "__version__",
+    "__citation__",
     # Utils
     "get_concurrent_records",
     "estimate_bins",
