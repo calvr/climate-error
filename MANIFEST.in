@@ -19,6 +19,11 @@ exclude .gitignore
 exclude run_docker.sh
 exclude update_version.py
 
+# --- include selected images for README.md
+include results/experiment_realcase_2.png
+include results/experiment_realcase_hist2.png
+include results/experiment_realcase_taylor.png
+
 # --- exclude common junk ---
 exclude *.zip
 exclude *.tar.gz
