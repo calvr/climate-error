@@ -1,12 +1,13 @@
 # Application examples of the `climate-error` metrics
 
-Three examples are provided in the [`examples/`](./) that
-show applications of the `climate-error` metrics to the wind data in
-[`example_wind_data/`](../example_wind_data/):
-
-- [`run_experiment_realcase.py`](./run_experiment_realcase.py)
-- [`run_experiment_timelags.py`](./run_experiment_timelags.py)
-- [`run_experiment_weibullFitError.py`](./run_experiment_weibullFitError.py)
+Four examples are provided in the [`examples/`](./) where
+one demonstrates the concept behind the use of `climate-error` metrics:  
+- [`run_periodic_lag_error.py`](./run_periodic_lag_error.py),  
+and three other show applications of the `climate-error` metrics to the wind data in
+[`example_wind_data/`](../example_wind_data/):  
+- [`run_experiment_realcase.py`](./run_experiment_realcase.py),  
+- [`run_experiment_timelags.py`](./run_experiment_timelags.py),  
+- [`run_experiment_weibullFitError.py`](./run_experiment_weibullFitError.py).
 
 All of these examples are actual cases that can be found in:
 
@@ -14,7 +15,9 @@ All of these examples are actual cases that can be found in:
 **Climate error metrics based on Wasserstein distances.**
 *Applied Energy*, Volume 398, 126392. [DOI: 10.1016/j.apenergy.2025.126392][ClimErr DOI]
 
-The wind data used in these examples is from the [Capel-Cynon dataset (2021)](#ref-capel).
+The wind measurements used in these examples are
+from the [La Ventosa](#ref-ventosa) and [Capel-Cynon](#ref-capel)
+datasets.
 The weather predictions focusing the site were attained via the [NEWA Application](#ref-newa).
 
 
@@ -45,6 +48,54 @@ after the interactive shell is ready, the code in the examples can be run:
 ...
 ```
 
+## Example `run_periodic_lag_error.py`
+
+This example focus two periodic signals, $o(t)$ and $p(t)$ that have a systematic error, where:  
+$$o(t) = \sin(t) + 0.5 \sin(2t) + 2,$$  
+$$p(t) = o(t + \tau) + 0.2,$$  
+where $\tau$ is a time lag.
+
+When $\tau$ is zero the signals are synchronized and the error for $p - o$ should:
+- have a BIAS value that is the systematic error between the two signals;
+- have a RMSE value that matches that of the BIAS;
+- the standard deviation of the error (STDE) should be zero;
+- values for time-dependent errors should match quantile-based errors (i.e. given by Wasserstein distances).
+
+However, if $\tau$ is non-zero such that the two signals are not synchronized, then:  
+- an STDE value exists, quantifying the phase error between the two signals;  
+- the RMSE must be higher than BIAS magnitude;  
+- values for time-dependent errors should increase when compared against $\tau=0$ error values;  
+- values for quantile-based errors should match the $\tau=0$ error values.  
+
+The goal of this example is to display all of these consequences stemming from the phase error between two similar signals.
+
+After the interactive shell is ready, the example can be executed leading to the following output:
+```bash
+(base) root@ceebc070f35f:/opt/repo#  python examples/run_experiment_realcase.py
+REPO_DIR=PosixPath('/opt/repo/examples')
+DATA_DIR=PosixPath('/opt/repo/example_wind_data')
+lag = 0.000 s
+Time-based error:     	t_bias_n=10% 	t_stde_n=0% 	t_rmse_n=10%
+Quantile-based error: 	q_bias_n=10% 	q_stde_n=0% 	q_rmse_n=10%
+
+lag = 0.628 s
+Time-based error:     	t_bias_n=10% 	t_stde_n=30% 	t_rmse_n=32%
+Quantile-based error: 	q_bias_n=10% 	q_stde_n=0% 	q_rmse_n=10%
+
+lag = 1.257 s
+Time-based error:     	t_bias_n=10% 	t_stde_n=53% 	t_rmse_n=54%
+Quantile-based error: 	q_bias_n=10% 	q_stde_n=0% 	q_rmse_n=10%
+
+lag = 3.142 s
+Time-based error:     	t_bias_n=10% 	t_stde_n=71% 	t_rmse_n=71%
+Quantile-based error: 	q_bias_n=10% 	q_stde_n=0% 	q_rmse_n=10%
+```
+
+The following plot should be produced:
+
+![Effect of time lag on RMSE.](../results/periodic_lag_error.png)
+
+
 
 ## Example `run_experiment_realcase.py`
 
@@ -66,7 +117,7 @@ For more context please refer to [Veiga Rodrigues C & Odderskov I (2025)](#ref-c
 for further details and arguments on this topic.
 
 After the interactive shell is ready, the example can be executed leading to the following output:
-```
+```bash
 (base) root@ceebc070f35f:/opt/repo#  python examples/run_experiment_realcase.py
 REPO_DIR=PosixPath('/opt/repo/examples')
 DATA_DIR=PosixPath('/opt/repo/example_wind_data')
@@ -116,8 +167,13 @@ When applying time-dependent and climate error metrics, the latter should show
 much lower random error than the former (inferred by the STDE value).
 The results focus both the climate errors based on empirical and Weibull-based distributions.
 
+To show the applicability of the climate-error metrics to
+data the does not follow a Weibull distribution shape,
+this example uses the [La Ventosa](#ref-ventosa) dataset which
+is characterized by a bimodal distribution.
+
 After the interactive shell is ready, the example can be executed leading to the following output:
-```
+```bash
 (base) root@ceebc070f35f:/opt/repo#  python examples/run_experiment_timelags.py
 REPO_DIR=PosixPath('/opt/repo/examples')
 DATA_DIR=PosixPath('/opt/repo/example_wind_data')
@@ -132,22 +188,18 @@ Sampling interval determined from TimeStamps as 10.0 min
 Sampling interval determined from TimeStamps as 10.0 min
 Sampling interval determined from TimeStamps as 10.0 min
         Time-dependent error    Climate error (empirical)    Climate error (Weibull)    Weibull wso fit error    Weibull wsp fit error
-BIAS      0.01 m/s   ( 0.1%)           0.01 m/s   ( 0.1%)         0.01 m/s   ( 0.1%)      -0.11 m/s   (-1.3%)      -0.11 m/s   (-1.3%)
-STDE      2.13 m/s   (25.0%)           0.01 m/s   ( 0.2%)         0.00 m/s   ( 0.0%)       0.20 m/s   ( 2.3%)       0.19 m/s   ( 2.2%)
-RMSE      2.13 m/s   (25.0%)           0.02 m/s   ( 0.2%)         0.01 m/s   ( 0.1%)       0.22 m/s   ( 2.6%)       0.22 m/s   ( 2.6%)
- MAE      1.52 m/s   (17.8%)                          nan                        nan                      nan                      nan
-Area                     nan           0.01 m/s   ( 0.1%)                        nan                      nan                      nan
+BIAS     -0.02 m/s   (-0.2%)          -0.02 m/s   (-0.2%)        -0.04 m/s   (-0.4%)       0.79 m/s   ( 7.5%)       0.77 m/s   ( 7.3%)
+STDE      2.41 m/s   (22.8%)           0.03 m/s   ( 0.3%)         0.02 m/s   ( 0.2%)       1.34 m/s   (12.7%)       1.32 m/s   (12.6%)
+RMSE      2.41 m/s   (22.8%)           0.04 m/s   ( 0.4%)         0.05 m/s   ( 0.4%)       1.56 m/s   (14.8%)       1.53 m/s   (14.6%)
+ MAE      1.69 m/s   (16.1%)                          nan                        nan                      nan                      nan
+Area                     nan           0.02 m/s   ( 0.2%)                        nan                      nan                      nan
 ```
 
 The following plots should be produced:
 
 ![Demonstration plot to show the lag between the time series.](../results/experiment_timelags_2.png)
-![Distribution plots with the climate error metrics.](../results/experiment_timelags_hist.png)
-![Distribution plots with time-based error metrics.](../results/experiment_timelags_hist2.png)
+![Distribution plots with time-based and quantile error metrics.](../results/experiment_timelags_hist2.png)
 ![Taylor diagram.](../results/experiment_timelags_taylor.png)
-
-
-
 
 
 
@@ -158,7 +210,7 @@ whose parameters were adjusted to a wind dataset. This is achieved by computing 
 get the agreement between the fitted Weibull against the empirical distribution.
 
 After the interactive shell is ready, the example can be executed leading to the following output:
-```
+```bash
 (base) root@ceebc070f35f:/opt/repo#  python examples/run_experiment_weibullFitError.py
 REPO_DIR=PosixPath('/opt/repo/examples')
 DATA_DIR=PosixPath('/opt/repo/example_wind_data')
@@ -183,17 +235,20 @@ The following plot should be produced:
 <a id="references"></a>
 
 1. <a id="ref-climerr"></a> Veiga Rodrigues C, Odderskov I (2025). Climate error metrics based on Wasserstein distances. *Applied Energy*, Volume 398, 126392. [DOI: 10.1016/j.apenergy.2025.126392][ClimErr DOI]
-2. <a id="ref-capel"></a> Hansen KS, Vasiljevic N, Sørensen SA (2021). *Resource data from the Capel Cynon masts*. DTU Data. [doi:10.11583/DTU.14135627][Capel DOI]
-3. <a id="ref-newa"></a> New European Wind Atlas (NEWA) — About/Terms & data access. [Link][NEWA About].
+2. <a id="ref-ventosa"></a> Hansen KS, Vasiljevic N, Sørensen SA (2021). *Resource data from the La Ventosa mast*. DTU Data. [doi:10.11583/DTU.14135609][Ventosa DOI]
+3. <a id="ref-capel"></a> Hansen KS, Vasiljevic N, Sørensen SA (2021). *Resource data from the Capel Cynon masts*. DTU Data. [doi:10.11583/DTU.14135627][Capel DOI]
+4. <a id="ref-newa"></a> New European Wind Atlas (NEWA) — About/Terms & data access. [Link][NEWA About].
 
 
 <!-- Reusable in-text shortcuts to the items above -->
 [Veiga Rodrigues & Odderskov (2025)]: #ref-climerr
+[La Ventosa dataset (2021)]: #ref-ventosa
 [Capel-Cynon dataset (2021)]: #ref-capel
 [NEWA Application]: #ref-newa
 
 <!-- Direct external links (DOIs / sites) -->
 [ClimErr DOI]: https://doi.org/10.1016/j.apenergy.2025.126392
+[Ventosa DOI]: https://doi.org/10.11583/DTU.14135609
 [Capel DOI]: https://doi.org/10.11583/DTU.14135627
 [NEWA About]: https://map.neweuropeanwindatlas.eu/about
 

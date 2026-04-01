@@ -25,8 +25,8 @@ DATA_DIR, EXAMPLES_DIR = get_paths()
 ##
 ## Read wind data
 ##
-df = pd.read_csv(DATA_DIR / "wind_data_capel_m1_50m.csv.gz", index_col=0, header=0, parse_dates=True)
-tzoomi = pd.to_datetime('1992-02-26')
+df = pd.read_csv(DATA_DIR / "wind_data_ventosa_32m.csv.gz", index_col=0, header=0, parse_dates=True)
+tzoomi = pd.to_datetime('2003-01-21')
 tzoome = tzoomi + pd.timedelta_range('4d', '5d')[-1]
 wso = df.iloc[:,0].dropna()
 wso.name = 'observation'
@@ -70,7 +70,7 @@ kwargs = dict(show=False, histtype='step', marker='None', ls='-')
 fig = plot_timeseries_w_hist(x=fill_time_gaps(wso).index, y=fill_time_gaps(wso), bins=bins, label=wso.name, color='C0', **kwargs)
 fig = plot_timeseries_w_hist(x=fill_time_gaps(wsp).index, y=fill_time_gaps(wsp), bins=bins, label=wsp.name, color='C1', fig=fig, **kwargs)
 fig.axes[0].set_xlim(fill_time_gaps(wso).index.min(), fill_time_gaps(wso).index.max())
-fig.axes[0].set_ylim(0, 35)
+fig.axes[0].set_ylim(0, 40)
 fig.axes[0].set_xlabel('Time')
 fig.axes[0].set_ylabel(r'Windspeed (m s$^{-1}$)')
 fig.axes[0].legend(fontsize='large', frameon=False)
@@ -82,7 +82,7 @@ fig.savefig(EXAMPLES_DIR / 'experiment_timelags.png')
 
 fig.axes[0].legend(fontsize='large', frameon=False, borderpad=0)
 fig.axes[0].set_xlim(xmin=tzoomi, xmax=tzoome)
-fig.axes[0].set_ylim(0, 25)
+fig.axes[0].set_ylim(0, 30)
 bbox0 = fig.axes[0].get_position()
 bbox1 = fig.axes[1].get_position()
 fig.delaxes(fig.axes[1])
@@ -188,7 +188,7 @@ plt.ylabel(r'Probability Density $(\text{m}^{-1}\,\text{s})$', labelpad=0)
 plt.gcf().tight_layout()
 #plt.savefig(EXAMPLES_DIR / 'experiment_timelags_hist.pdf')
 plt.savefig(EXAMPLES_DIR / 'experiment_timelags_hist.png', dpi=100)
-plt.show()
+#plt.show()
 
 plt.close('all')
   
@@ -212,7 +212,7 @@ plt.text(.99, .99,
     + rf'Climate error (empirical): BIAS={eBIASn:4.1f}%  STDE={eSTDEn:4.1f}%  RMSE={eRMSEn:4.1f}%',
     ha='right', va='top', transform=plt.gca().transAxes, fontsize='large',
 )
-plt.ylim([0, 0.14])
+plt.ylim([0, 0.10])
 plt.xlim([0, 30])
 plt.xlabel(r'Wind speed $(\text{m}\,\text{s}^{-1})$', labelpad=0)
 plt.ylabel(r'Probability Density $(\text{m}^{-1}\,\text{s})$', labelpad=0)

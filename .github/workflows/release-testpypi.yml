@@ -27,9 +27,12 @@ jobs:
 
       - name: Set release version
         run: |
-          export VERSION="${GITHUB_REF_NAME#test-}" >> $GITHUB_ENV
-          export SETUPTOOLS_SCM_PRETEND_VERSION="${VERSION}" >> $GITHUB_ENV
+          VERSION="${GITHUB_REF_NAME#test-}"
+          SETUPTOOLS_SCM_PRETEND_VERSION="${VERSION}"
           echo -e "VERSION=${VERSION}"
+          
+          echo "VERSION=${VERSION}" >> "${GITHUB_ENV}"
+          echo "SETUPTOOLS_SCM_PRETEND_VERSION=${VERSION}" >> "${GITHUB_ENV}"
 
       - name: Inject version and release date into CITATION.cff
         run: |
