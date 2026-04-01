@@ -28,6 +28,7 @@ jobs:
       - name: Inject version and release date into CITATION.cff
         run: |
           export VERSION="${GITHUB_REF_NAME#test-}"
+          export SETUPTOOLS_SCM_PRETEND_VERSION="${VERSION}"
           export DATE="$(date +%Y-%m-%d)"
           echo -e "VERSION=${VERSION}"
           echo -e "DATE=${DATE}"
@@ -56,6 +57,8 @@ jobs:
           EOF
 
       - name: Build wheel and sdist
+        env:
+          SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.SETUPTOOLS_SCM_PRETEND_VERSION }}
         run: |
           python -m build --wheel --sdist
 
