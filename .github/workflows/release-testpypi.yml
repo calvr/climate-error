@@ -1,4 +1,6 @@
-name: Release (TestPyPI)
+name: Pre-Release (TestPyPI)
+permissions:
+  contents: write
 
 on:
   push:
@@ -74,4 +76,14 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
         run: |
           twine upload --repository testpypi dist/*
+
+      - name: Create GitHub pre-release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "TestPyPI pre-release ${{ github.ref_name }}"
+          prerelease: true
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
