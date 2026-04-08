@@ -2,7 +2,8 @@
 
 Four examples are provided in the [`examples/`](./) where
 one demonstrates the concept behind the use of `climate-error` metrics:  
-- [`run_periodic_lag_error.py`](./run_periodic_lag_error.py),  
+- [`run_periodic_lag_error.py`](./run_periodic_lag_error.py),
+
 and three other show applications of the `climate-error` metrics to the wind data in
 [`example_wind_data/`](../example_wind_data/):  
 - [`run_experiment_realcase.py`](./run_experiment_realcase.py),  

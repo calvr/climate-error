@@ -19,12 +19,12 @@ by comparing the statistical distributions of predictions and observations.
 
 For two time series of predictions $$x_p(t)$$ and observations $$x_o(t)$$, conventional **time-dependent error metrics** are defined from the difference of paired time records:  
 
-$$\varepsilon_n = p_n - o_n, \quad n = 1, \ldots, N,$$  
+$$\epsilon_n = x_p(t_n) - x_o(t_n), \quad n = 1, \ldots, N,$$  
 
-from which metrics such as the BIAS, the *root of the mean squared errors* (RMSE) and the *standard deviation of the error* (STDE) are computed:  
+where $t_n$ is a time index and $\epsilon$ is the error from which metrics such as the BIAS, the *root of the mean squared errors* (RMSE) and the *standard deviation of the error* (STDE) are computed:  
 
-$$\text{BIAS} = \mathbb{E}[\mathbf{\varepsilon}], \quad
-\text{RMSE} = \sqrt{\mathbb{E}[\mathbf{\varepsilon}^2]}, \quad
+$$\text{BIAS} = \mathbb{E}[\bf{\epsilon}], \qquad
+\text{RMSE} = \sqrt{\mathbb{E}[\bf{\epsilon}^2]}, \qquad
 \text{STDE}^2 = \text{RMSE}^2 - \text{BIAS}^2.$$  
 
 While BIAS is independent of time alignment, RMSE and STDE are affected by **time‑lag (phase) errors**, which can dominate these metrics even when predictions and observations share the same climate statistics.
@@ -40,15 +40,19 @@ $$\text{BIAS} = \int_0^1 \left( Q_p(u) - Q_o(u) \right) du
 
 $$\text{RMSE}^2 \approx \int_0^1 \left[ Q_p(u) - Q_o(u) \right]^2 du,$$  
 
-and $\text{STDE}^2 = \text{RMSE}^2 - \text{BIAS}^2$.
+$$\text{STDE}^2 = \text{RMSE}^2 - \text{BIAS}^2.$$  
 
-These expressions correspond to signed first‑order and second‑order **Wasserstein distances** between distributions, yielding error metrics that:  
+These expressions correspond to signed first-order and second-order **Wasserstein distances** between distributions, yielding error metrics that:  
 - are independent of time alignment,
 - separate systematic (accuracy) and random (precision) error,
 - retain the physical units of wind speed,
 - are directly comparable to conventional BIAS, RMSE, and STDE.
 
-The metrics are applicable to empirical distributions derived from samples, analytical distributions (e.g. Weibull), and comparisons between analytical and empirical distributions (e.g. goodness-of-fit).
+A related measure is the *area metric* of [Ferson et al. (2008)].
+Yet, its value cannot be split into systematic and random error
+as its formulation is an absolute first-order Wasserstein distance (also known as the [earth mover's distance](https://en.wikipedia.org/wiki/Earth_mover%27s_distance)).
+
+These metrics are applicable to empirical distributions derived from samples, analytical distributions (e.g. Weibull), and comparisons between analytical and empirical distributions (e.g. goodness-of-fit).
 
 For further details on the mathematical formulation and the statistical arguments favoring their application,
 please refer to [Veiga Rodrigues & Odderskov (2025)].
@@ -189,13 +193,14 @@ where the fitting method in `ewa_weibull_fit_sample` follows the European Wind A
 ### Examples
 
 Four examples are provided in the [`examples/`](./examples/) where
-one demonstrates the concept behind the use of `climate-error` metrics:
+one demonstrates the concept behind the use of `climate-error` metrics:  
 - [`examples/run_periodic_lag_error.py`](./examples/run_periodic_lag_error.py),
+
 and three other show applications of the `climate-error` metrics to the wind data in
 [`example_wind_data/`](./example_wind_data/):  
-- [`examples/run_experiment_realcase.py`](./examples/run_experiment_realcase.py)  
-- [`examples/run_experiment_timelags.py`](./examples/run_experiment_timelags.py)  
-- [`examples/run_experiment_weibullFitError.py`](./examples/run_experiment_weibullFitError.py)  
+- [`examples/run_experiment_realcase.py`](./examples/run_experiment_realcase.py),  
+- [`examples/run_experiment_timelags.py`](./examples/run_experiment_timelags.py),  
+- [`examples/run_experiment_weibullFitError.py`](./examples/run_experiment_weibullFitError.py).  
 
 To run any of the examples, the [`run_docker.sh`](./run_docker.sh) bash script can be executed
 to initiate an interactive docker container that will be destroyed after exiting it. The
@@ -248,7 +253,7 @@ and the following plots should be produced:
 <!-- Section anchor to link to this block as a whole -->
 <a id="references"></a>
 
-1. <a id="ref-climerr"></a> Veiga Rodrigues C, Odderskov I (2025). Climate error metrics based on Wasserstein distances. *Applied Energy*, Volume 398, 126392. [DOI: 10.1016/j.apenergy.2025.126392][ClimErr DOI]
+1. <a id="ref-climerr"></a> Veiga Rodrigues C, Odderskov I (2025). Climate error metrics based on Wasserstein distances. *Appli Energ*, 398:126392. [DOI: 10.1016/j.apenergy.2025.126392][ClimErr DOI]
 2. <a id="ref-ventosa"></a> Hansen KS, Vasiljevic N, Sørensen SA (2021). *Resource data from the La Ventosa mast*. DTU Data. [doi:10.11583/DTU.14135609][Ventosa DOI]
 3. <a id="ref-capel"></a> Hansen KS, Vasiljevic N, Sørensen SA (2021). *Resource data from the Capel Cynon masts*. DTU Data. [doi:10.11583/DTU.14135627][Capel DOI]
 4. <a id="ref-newa"></a> New European Wind Atlas (NEWA) — About/Terms & data access. [Link][NEWA About].
@@ -256,7 +261,7 @@ and the following plots should be produced:
 6. <a id="ref-emd-weibull"></a> EMD International A/S (2014). *Fitting Weibull Parameters for Wind Energy Applications*. [PDF Document URL](https://help.emd.dk/mediawiki/images/a/a0/Description_of_Weibull_fitting.pdf).
 7. <a id="ref-climatic"></a> *Climatic: Wind Data Visualization* (GitHub). [GitHub repository](https://github.com/wrobstory/climatic), file [climatic/weibull_est.py](https://github.com/wrobstory/climatic/blob/5f0be338f8560987ace64bb94c2713d89d2c4e75/climatic/weibull_est.py)
 8. <a id="ref-anemoi"></a> *ANEMOI — EDF's pre‑alpha Python package for wind data analysis*. [GitHub repository](https://github.com/coryjog/anemoi), file [analysis/weibull.py](https://github.com/coryjog/anemoi/blob/6f1ad9711749e3759e02c5a5273610768fdcd593/anemoi/analysis/weibull.py)
-
+9. <a id="ref-ferson"></a> Ferson S, Oberkampf WL, Ginzburg L (2008). Model validation and predictive capability for the thermal challenge problem. *Comput Methods Appl Mech Eng*, 197:2408-30. [DOI: 10.1016/j.cma.2007.07.030][AreaMetric DOI]
 
 <!-- Reusable in-text shortcuts to the items above -->
 [Veiga Rodrigues & Odderskov (2025)]: #ref-climerr
@@ -267,6 +272,7 @@ and the following plots should be produced:
 [EMD (2014)]: #ref-emd-weibull
 [Climatic]: #ref-climatic
 [ANEMOI]: #ref-anemoi
+[Ferson et al. (2008)]: #ref-ferson
 
 <!-- Direct external links (DOIs / sites) -->
 [ClimErr DOI]: https://doi.org/10.1016/j.apenergy.2025.126392
@@ -274,4 +280,5 @@ and the following plots should be produced:
 [Capel DOI]: https://doi.org/10.11583/DTU.14135627
 [NEWA About]: https://map.neweuropeanwindatlas.eu/about
 [EWA89 URL]: https://orbit.dtu.dk/en/publications/european-wind-atlas/
+[AreaMetric DOI]: https://doi.org/10.1016/j.cma.2007.07.030
 
