@@ -24,11 +24,10 @@ The weather predictions focusing the site were attained via the [NEWA Applicatio
 
 ## Preparing the environment to run the examples
 
-To run any of the examples, the [`run_docker.sh`](./run_docker.sh) bash script can be executed
+To run any of the examples, the [`run_docker.sh`](../run_docker.sh) bash script can be executed
 to initiate an interactive docker container that will be destroyed after exiting it. The
 code executed while initializing the container install the code and ensures software tests
 are run. This allows to quickly test `climate-error` and its application examples.
-
 
 Taking the [`run_experiment_realcase.py`](./examples/run_experiment_realcase.py) example:
 ```bash
@@ -48,6 +47,57 @@ after the interactive shell is ready, the code in the examples can be run:
 (base) root@ceebc070f35f:/opt/repo#  python examples/run_experiment_realcase.py
 ...
 ```
+
+
+### Non-graphical environment for WSL users
+
+In case there are issues with attaining a graphical environment,
+the [`run_docker.sh`](../run_docker_wsl.sh) bash script can be executed instead
+and figures will be saved as PNG files, together with results TXT tables.
+The output should display:
+```bash
+~/climate-error $ ./run_docker_wsl.sh
+...
+
+########################################################################
+##                                                                    ##
+##          INSTRUCTIONS TO GET FIGURES AND OTHER OUTPUTS             ##
+##                                                                    ##
+########################################################################
+##         If you want to save figures, plots, or any other           ##
+##         output results, please copy or write them to:              ##
+##
+##             $SHAREDIR
+##
+##         which resolves to:
+##
+##             ~/climate-error/shared
+##
+##         like:
+##
+##             (base) #  cp experiment_realcase_*.png  $SHAREDIR/
+##
+##         Anything placed in this directory will be available        ##
+##         on the host system outside the container.                  ##
+##                                                                    ##
+########################################################################
+
+(base) root@ceebc070f35f:/opt/repo#
+```
+Considering one of the examples,
+[`run_experiment_realcase.py`](./examples/run_experiment_realcase.py),
+after running it, files can be collected and copied to the `$SHAREDIR` folder:
+```
+(base) root@ceebc070f35f:/opt/repo#  python examples/run_experiment_realcase.py
+...
+
+(base) root@ceebc070f35f:/opt/repo#  ls examples/*png
+examples/experiment_realcase.png  examples/experiment_realcase_2.png
+examples/experiment_realcase_hist2.png  examples/experiment_realcase_taylor.png
+
+(base) root@ceebc070f35f:/opt/repo#  cp examples/*png $SHAREDIR/
+```
+
 
 ## Example `run_periodic_lag_error.py`
 

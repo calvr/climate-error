@@ -207,6 +207,12 @@ to initiate an interactive docker container that will be destroyed after exiting
 code executed while initializing the container install the code and ensures software tests
 are run. This allows to quickly test `climate-error` and its application examples. 
 
+In case there are issues with attaining a graphical environment,
+the [`run_docker.sh`](../run_docker_wsl.sh) bash script can be executed instead
+and figures will be saved as PNG files, together with results TXT tables.
+Instruction on how to copy figures and other files to the host system
+are available in the [examples documentation](./examples/README.md).
+
 Taking the [`run_experiment_realcase.py`](./examples/run_experiment_realcase.py) example:
 ```bash
 ~/climate-error $ ./run_docker.sh 

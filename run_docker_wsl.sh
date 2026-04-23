@@ -8,12 +8,7 @@ PYVER="python$(grep -E "requires-python[[:space:]]*=" pyproject.toml | sed -E 's
 
 DOCKER_IMG=mambaorg/micromamba:2.3.1-debian11
 
-xhost +local:docker
-#docker run --rm --user root --net=host -v $PWD:$PWD -w $PWD -it $DOCKER_IMG /bin/bash -lc "
-docker run --rm --user root -p 127.0.0.1:42137:42137 \
-  -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v $PWD:$PWD -w $PWD \
-  --ipc=host -it $DOCKER_IMG /bin/bash -lc "
+docker run --rm --user root -v $PWD:$PWD -w $PWD --ipc=host -it $DOCKER_IMG /bin/bash -lc "
 set -eo pipefail
 eval \"\$(micromamba shell hook --shell bash)\"
 micromamba activate base
@@ -26,7 +21,7 @@ micromamba config set --env channel_priority strict
 micromamba config prepend --env channels conda-forge
 micromamba config list 
 
-export SHAREDIR=\"\$(realpath \"\${PWD}/shared\")\"
+export SHAREDIR=\"\$(realpath \"\${PWD}/shared\")\" 
 export REPODIR=/opt/repo 
 export PKGSDIR=/opt/dist
 export TESTDIR=/opt/test
@@ -50,7 +45,7 @@ micromamba clean --force-pkgs-dirs --yes
 micromamba deactivate
 micromamba activate base
 
-export MPLBACKEND=TkAgg
+export MPLBACKEND=Agg
 export PYTHONUNBUFFERED=1
 export PYTHON_BASIC_REPL=1
 
@@ -83,7 +78,7 @@ uv pip install --system build
 python -m build -v --wheel --sdist --outdir \$PKGSDIR
 uv pip install --system \$PKGSDIR/*.whl
 
-uv pip list --format freeze
+#uv pip list --format freeze
 
 mkdir -p \$SHAREDIR
 
@@ -96,7 +91,7 @@ cat <<'EOF'
 ########################################################################
 ##         If you want to save figures, plots, or any other           ##
 ##         output results, please copy or write them to:              ##
-##
+## 
 ##             \$SHAREDIR
 ##
 ##         which resolves to:
@@ -104,11 +99,11 @@ cat <<'EOF'
 EOF
 printf \"##             %s\\n\" \"\$SHAREDIR\"
 cat <<'EOF'
-##
+##     
 ##         like:
-##
+##     
 ##             (base) #  cp experiment_realcase_*.png  \$SHAREDIR/
-##
+##     
 ##         Anything placed in this directory will be available        ##
 ##         on the host system outside the container.                  ##
 ##                                                                    ##
