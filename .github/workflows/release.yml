@@ -81,9 +81,15 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: "TestPyPI pre-release ${{ github.ref_name }}"
+          name: "${{ github.ref_name }}"
           prerelease: false
           generate_release_notes: true
+          body: |
+            **PyPI package:** https://pypi.org/project/climate-error/${{ github.ref_name }}/
+            **Install:**
+            ```bash
+            pip install climate-error==${{ github.ref_name }}
+            ```
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
