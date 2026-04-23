@@ -1,10 +1,10 @@
 
 [![CI](https://github.com/calvr/climate-error/actions/workflows/ci.yml/badge.svg)](https://github.com/calvr/climate-error/actions/workflows/ci.yml)
-[![CD PRE](https://github.com/calvr/climate-error/actions/workflows/release-testpypi.yml/badge.svg)](https://github.com/calvr/climate-error/actions/workflows/release-testpypi.yml)
-[![CD PRD](https://github.com/calvr/climate-error/actions/workflows/release.yml/badge.svg)](https://github.com/calvr/climate-error/actions/workflows/release.yml)  
-[![PyPI](https://img.shields.io/pypi/v/climate-error)](https://pypi.org/project/climate-error/)
-[![Python versions](https://img.shields.io/pypi/pyversions/climate-error)](https://pypi.org/project/climate-error/)
-[![License](https://img.shields.io/pypi/l/climate-error)](https://github.com/calvr/climate-error/blob/main/LICENSE)
+[![CD PRE](https://github.com/calvr/climate-error/actions/workflows/release-testpypi.yml/badge.svg?event=push)](https://github.com/calvr/climate-error/actions/workflows/release-testpypi.yml)
+[![CD PRD](https://github.com/calvr/climate-error/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/calvr/climate-error/actions/workflows/release.yml)  
+[![PyPI](https://img.shields.io/pypi/v/climate-error?cacheSeconds=600)](https://pypi.org/project/climate-error/)
+[![Python versions](https://img.shields.io/pypi/pyversions/climate-error?cacheSeconds=600)](https://pypi.org/project/climate-error/)
+[![License](https://img.shields.io/pypi/l/climate-error?cacheSeconds=600)](https://github.com/calvr/climate-error/blob/main/LICENSE)
 
 
 # `climate-error`: Quantile Error Metrics for Wind Climates 
