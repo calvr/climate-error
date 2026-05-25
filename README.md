@@ -12,6 +12,20 @@
 Error Metrics for Wind Climates based on Statistical Quantiles and Wasserstein Distances.
 
 
+## TL;DR
+
+**What?**  
+A Python tool to evaluate how well wind climate predictions match observations.  
+
+**How?**  
+Instead of comparing time series record-by-record, it compares statistical distributions
+via their quantile functions.
+
+**Why?**  
+It avoids errors caused by time misalignment and provides metrics that keep physical units (e.g.&nbsp;m&nbsp;s<sup>-1</sup> for wind speed). Furthermore, RMSE is retrieved allowing (i) separation into systematic and random errors,
+and (ii) comparison against the typical time-dependent metrics.  
+
+
 ## Description
 
 Climate error metrics quantify the agreement between wind speed climates
