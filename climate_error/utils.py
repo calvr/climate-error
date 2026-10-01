@@ -31,9 +31,12 @@ def estimate_bins(wso, wsp=None, minbinw=.5):
     bin_edges = np.histogram_bin_edges(wso, bins='auto')
     #nbins = bin_edges.size - 1
     binw = pd.Series(np.round(np.diff(bin_edges), 8)).mode()[0]
-    binw = minbinw if binw <= minbinw else 1
+    binw = min(max(binw, minbinw), 1)  # minbinw if binw <= minbinw else 1
     wsp = wso if None is wsp else wsp
     wsmax = int(np.ceil(max(wsp.max(), wso.max())))
-    bins = np.arange(0, wsmax + binw, binw)
+    bin_edges = np.arange(0, wsmax + binw, binw)
+    bins = (bin_edges[1:] + bin_edges[:-1])/2
+    #bins = np.arange(0, wsmax + binw, binw)
+    #bin_edges = np.append(bins[0] - binw/2, bins + binw/2)
     return bins, bin_edges
 

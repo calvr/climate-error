@@ -120,4 +120,12 @@ extend-exclude = [
 fix = false
 unsafe-fixes = false
 show-fixes = false
+line-length = 150
+
+[tool.ruff.lint]
+select = [
+  "E",  # pycodestyle errors
+  "F",  # pyflakes
+  "B",  # bugbear
+]
 

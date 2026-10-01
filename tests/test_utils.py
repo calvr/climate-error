@@ -37,16 +37,17 @@ def test_estimate_bins():
     assert edges.ndim == 1
     #
     wso = np.linspace(0, 10, 1000)
-    bins, _ = estimate_bins(wso, minbinw=1.0)
+    bins, edges = estimate_bins(wso, minbinw=1.0)
     bin_widths = np.unique(np.diff(bins))
+    assert np.allclose(np.unique(np.diff(edges)), bin_widths)
     assert np.all(bin_widths >= 1.0)
     #
     wso = np.array([2.1, 5.3, 7.9])
-    bins, _ = estimate_bins(wso)
-    assert bins[-1] >= np.ceil(wso.max())
+    bins, edges = estimate_bins(wso)
+    assert edges[-1] >= np.ceil(wso.max())
     #
     wso = np.array([1.0, 2.0, 3.0])
     wsp = np.array([10.0])
-    bins, _ = estimate_bins(wso, wsp=wsp)
-    assert bins[-1] >= 10.0
+    bins, edges = estimate_bins(wso, wsp=wsp)
+    assert edges[-1] >= 10.0
 

@@ -59,16 +59,16 @@ assert (wso.dropna().index == wsp.dropna().index).all(), "Observed and Predicted
 bins, bin_edges = climerr.estimate_bins(wso, wsp)
 
 ## HISTOGRAMS
-#wso.hist(grid=False, density=True, bins=bins, histtype='step', label=wso.name)
-#wsp.hist(grid=False, density=True, bins=bins, histtype='step', label=wsp.name)
+#wso.hist(grid=False, density=True, bins=bin_edges, histtype='step', label=wso.name)
+#wsp.hist(grid=False, density=True, bins=bin_edges, histtype='step', label=wsp.name)
 #plt.legend()
 #plt.show()
 
 ## TIMESERIES AND HISTOGRAMS
 #kwargs = dict(show=False, histtype='step', marker=',', ls='None')
 kwargs = dict(show=False, histtype='step', marker='None', ls='-')
-fig = plot_timeseries_w_hist(x=fill_time_gaps(wso).index, y=fill_time_gaps(wso), bins=bins, label=wso.name, color='C0', **kwargs)
-fig = plot_timeseries_w_hist(x=fill_time_gaps(wsp).index, y=fill_time_gaps(wsp), bins=bins, label=wsp.name, color='C1', fig=fig, **kwargs)
+fig = plot_timeseries_w_hist(x=fill_time_gaps(wso).index, y=fill_time_gaps(wso), bins=bin_edges, label=wso.name, color='C0', **kwargs)
+fig = plot_timeseries_w_hist(x=fill_time_gaps(wsp).index, y=fill_time_gaps(wsp), bins=bin_edges, label=wsp.name, color='C1', fig=fig, **kwargs)
 fig.axes[0].set_xlim(fill_time_gaps(wso).index.min(), fill_time_gaps(wso).index.max())
 fig.axes[0].set_ylim(0, 40)
 fig.axes[0].set_xlabel('Time')
@@ -164,9 +164,9 @@ co = plt.rcParams['axes.prop_cycle'].by_key()['color'][0]
 cp = plt.rcParams['axes.prop_cycle'].by_key()['color'][1]
 new_co = 'skyblue'    # darken_color(co)
 new_cp = 'rosybrown'  # darken_color(cp)
-wso.hist(grid=False, density=True, bins=bins, histtype='step', color=co, label='$ws_o$ density from histogram')
-wsp.hist(grid=False, density=True, bins=bins, histtype='step', color=cp, label='$ws_p$ density from histogram')
-x = np.linspace(0, bins.max(), 101)
+wso.hist(grid=False, density=True, bins=bin_edges, histtype='step', color=co, label='$ws_o$ density from histogram')
+wsp.hist(grid=False, density=True, bins=bin_edges, histtype='step', color=cp, label='$ws_p$ density from histogram')
+x = np.linspace(0, bin_edges.max(), 101)
 plt.plot(x, climerr.weibull_pdf(x, Ao, Ko), lw=1.2, ls=(0, (6, 2)), color=new_co, label=f'$ws_o$ Weibull fit $A$={Ao:.1f} m/s, $K$={Ko:.2f}')
 plt.plot(x, climerr.weibull_pdf(x, Ap, Kp), lw=1.2, ls=(0, (5, 4)), color=new_cp, label=f'$ws_p$ Weibull fit $A$={Ap:.1f} m/s, $K$={Kp:.2f}')
 plt.legend(loc='center right', frameon=False, fontsize=10, bbox_to_anchor=(1, .667), borderpad=0, labelspacing=0)
@@ -196,9 +196,9 @@ co = plt.rcParams['axes.prop_cycle'].by_key()['color'][0]
 cp = plt.rcParams['axes.prop_cycle'].by_key()['color'][1]
 new_co = 'skyblue'    # darken_color(co)
 new_cp = 'rosybrown'  # darken_color(cp)
-wso.hist(grid=False, density=True, bins=bins, histtype='step', color=co, label=r'$ws_o$ density from histogram')
-wsp.hist(grid=False, density=True, bins=bins, histtype='step', color=cp, label=r'$ws_p$ density from histogram')
-x = np.linspace(0, bins.max(), 101)
+wso.hist(grid=False, density=True, bins=bin_edges, histtype='step', color=co, label=r'$ws_o$ density from histogram')
+wsp.hist(grid=False, density=True, bins=bin_edges, histtype='step', color=cp, label=r'$ws_p$ density from histogram')
+x = np.linspace(0, bin_edges.max(), 101)
 #plt.plot(x, climerr.weibull_pdf(x, Ao, Ko), lw=1.2, ls=(0, (6, 2)), color=new_co, label=f'$ws_o$ Weibull fit $A$={Ao:.1f} m/s, $K$={Ko:.2f}')
 #plt.plot(x, climerr.weibull_pdf(x, Ap, Kp), lw=1.2, ls=(0, (5, 4)), color=new_cp, label=f'$ws_p$ Weibull fit $A$={Ap:.1f} m/s, $K$={Kp:.2f}')
 plt.legend(loc='center right', frameon=False, fontsize=10, bbox_to_anchor=(1, .667), borderpad=0, labelspacing=0)
