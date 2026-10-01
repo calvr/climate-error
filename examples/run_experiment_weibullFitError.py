@@ -81,8 +81,8 @@ co = plt.rcParams['axes.prop_cycle'].by_key()['color'][0]
 cp = plt.rcParams['axes.prop_cycle'].by_key()['color'][1]
 new_co = 'skyblue'    # darken_color(co)
 new_cp = 'rosybrown'  # darken_color(cp)
-wso.hist(grid=False, density=True, bins=bins, histtype='step', color=co, label=f'$ws_o$ density from histogram')
-x = np.linspace(0, bins.max(), 101)
+wso.hist(grid=False, density=True, bins=bin_edges, histtype='step', color=co, label=f'$ws_o$ density from histogram')
+x = np.linspace(0, bin_edges.max(), 101)
 plt.plot(x, climerr.weibull_pdf(x, Ao, Ko), lw=1.2, ls=(0, (6, 2)), color=new_co, label=f'$ws_o$ Weibull fit $A$={Ao:.1f} m/s, $K$={Ko:.2f}')
 plt.legend(loc='center right', frameon=False, fontsize=10, bbox_to_anchor=(.99, .80), borderpad=0, labelspacing=0)
 plt.text(.98, .98, 

@@ -141,7 +141,7 @@ def plot_timeseries_w_hist(
     ax_main.plot(x, y, c=color, ls=ls, lw=lw, marker=marker, label=label)
     if None is bins:
         bin_edges = np.histogram_bin_edges(y.dropna(), bins='auto')
-        bins = bin_edges.size - 1
+        bins = bin_edges.size - 1  # number bin centres, check help(pd.Series.hist)
     ax_hist.hist(y.dropna(), bins=bins,
         align='mid',
         density=density,
